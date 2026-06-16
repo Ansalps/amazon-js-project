@@ -1,6 +1,16 @@
 import {cart,removeFromCart} from '../data/cart.js';
 import {products} from '../data/products.js';
-import {formatCurrency} from './utils/money.js'
+import formatCurrency from './utils/money.js'
+import { calculateCartQuantity,updateQuantity } from '../data/cart.js';
+import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
+import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
+
+hello();
+
+const today=dayjs();
+const deliveryDate=today.add(7,'days');
+console.log(deliveryDate.format('dddd, MMMM D'));
+
 
 let cartSummaryHTML='';
 
@@ -32,12 +42,18 @@ cartSummaryHTML+=`
             </div>
             <div class="product-quantity">
                 <span>
-                Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+                Quantity: <span class="quantity-label js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
                 </span>
-                <span class="update-quantity-link link-primary">
+                <span class="update-quantity-link link-primary js-update-link" 
+                data-product-id="${matchingProduct.id}">
                 Update
                 </span>
-                <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
+                <input class="quantity-input js-quantity-input-${matchingProduct.id} js-quantity-input"
+                data-product-id="${matchingProduct.id}">
+                <span class="save-quantity-link link-primary" 
+                data-product-id="${matchingProduct.id}">Save</span>
+                <span class="delete-quantity-link link-primary js-delete-link" 
+                data-product-id="${matchingProduct.id}">
                 Delete
                 </span>
             </div>
@@ -104,6 +120,68 @@ document.querySelectorAll('.js-delete-link')
 
             const container=document.querySelector(`.js-cart-item-container-${productId}`);
         container.remove();
-           
+           updateCartQuantity();
         });
     });
+
+    
+function updateCartQuantity(){
+    const cartQuantity = calculateCartQuantity();
+    document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity} items`;
+}
+
+updateCartQuantity();
+
+document.querySelectorAll('.js-update-link')
+    .forEach((link)=>{
+        link.addEventListener('click',()=>{
+            const productId=link.dataset.productId
+            console.log(productId);
+            const container=document.querySelector(`.js-cart-item-container-${productId}`);
+            container.classList.add('is-editing-quantity');
+        //     removeFromCart(productId);
+
+        //     const container=document.querySelector(`.js-cart-item-container-${productId}`);
+        // container.remove();
+        //    updateCartQuantity();
+        });
+    });
+
+    function hadleQuantity(link){
+            const productId=link.dataset.productId
+            console.log(productId);
+
+            const inputElement=document.querySelector(`.js-quantity-input-${productId}`)
+            const inputValue=Number(inputElement.value)
+            console.log(inputValue)
+            if (inputValue<0 || inputValue>=1000){
+                console.log('hi')
+                return
+            }
+            updateQuantity(productId,inputValue)
+
+            
+
+            document.querySelector(`.js-quantity-label-${productId}`).innerHTML=inputElement.value
+            updateCartQuantity();
+
+            const container=document.querySelector(`.js-cart-item-container-${productId}`);
+            container.classList.remove('is-editing-quantity');
+    }
+
+document.querySelectorAll('.save-quantity-link')
+    .forEach((link)=>{
+        link.addEventListener('click',()=>{
+            hadleQuantity(link)
+        });
+    });
+
+document.querySelectorAll('.js-quantity-input')
+    .forEach((link)=>{
+        link.addEventListener('keydown',(event)=>{
+            if (event.key=='Enter'){
+                hadleQuantity(link)
+            }
+        })
+    })
+
