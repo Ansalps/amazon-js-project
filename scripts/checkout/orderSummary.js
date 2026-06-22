@@ -35,10 +35,10 @@ export function renderOrderSummary(){
                 src="${matchingProduct.image}">
 
                 <div class="cart-item-details">
-                <div class="product-name">
+                <div class="product-name js-product-name-${matchingProduct.id}">
                     ${matchingProduct.name}
                 </div>
-                <div class="product-price">
+                <div class="product-price js-product-price-${matchingProduct.id}">
                     ${formatCurrency(matchingProduct.priceCents)}
                 </div>
                 <div class="product-quantity js-product-quantity-${matchingProduct.id}">
@@ -61,7 +61,7 @@ export function renderOrderSummary(){
                 </div>
                 </div>
 
-                <div class="delivery-options">
+                <div class="delivery-options js-delivery-options-${matchingProduct.id}">
                 <div class="delivery-options-title">
                     Choose a delivery option:
                 </div>
