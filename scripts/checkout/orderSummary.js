@@ -61,7 +61,7 @@ export function renderOrderSummary(){
                 </div>
                 </div>
 
-                <div class="delivery-options js-delivery-options-${matchingProduct.id}">
+                <div class="delivery-options">
                 <div class="delivery-options-title">
                     Choose a delivery option:
                 </div>
@@ -88,11 +88,13 @@ export function renderOrderSummary(){
             const isChecked= deliveryOption.id===cartItem.deliveryOptionId;
             
             html+=`
-                <div class="delivery-option js-delivery-option"
+                <div class="delivery-option js-delivery-option 
+                js-delivery-option-${matchingProduct.id}-${deliveryOption.id}"
                 data-product-id="${matchingProduct.id}" data-delivery-option-id="${deliveryOption.id}">
                     <input type="radio"
                     ${isChecked ? 'checked' : ''}
-                    class="delivery-option-input"
+                    class="delivery-option-input 
+                    js-delivery-option-input-${matchingProduct.id}-${deliveryOption.id}"
                     name="delivery-option-${matchingProduct.id}">
                     <div>
                     <div class="delivery-option-date">
@@ -137,7 +139,7 @@ export function renderOrderSummary(){
         .forEach((link)=>{
             link.addEventListener('click',()=>{
                 const productId=link.dataset.productId
-                console.log(productId);
+                //console.log(productId);
                 const container=document.querySelector(`.js-cart-item-container-${productId}`);
                 container.classList.add('is-editing-quantity');
             //     removeFromCart(productId);

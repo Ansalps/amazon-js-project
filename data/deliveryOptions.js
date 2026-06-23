@@ -26,17 +26,17 @@ export function getDeliveryOption(deliveryOptionId){
 export function calculateDeliveryDate(deliveryOption){
     const today=dayjs();
     const day=today.format('dddd');
-    console.log(day);
+    //console.log(day);
     let deliveryDate=today.add(
         deliveryOption.deliveryDays,
         'days'
     );
-    console.log(deliveryDate.format('dddd, MMMM D'))
+    //console.log(deliveryDate.format('dddd, MMMM D'))
     while (
         deliveryDate.format('dddd') === 'Saturday' ||   
         deliveryDate.format('dddd') === 'Sunday'
         ) {
-        console.log('loop:', deliveryDate.format('dddd, MMMM D'));
+        //console.log('loop:', deliveryDate.format('dddd, MMMM D'));
         deliveryDate = deliveryDate.add(1, 'day');
         }
     const dateString=deliveryDate.format('dddd, MMMM D');
