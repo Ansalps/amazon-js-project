@@ -8,9 +8,9 @@ class Cart{
         this.#localStorageKey=localStorageKey;
         
 
-        this.loadFromStorage();
+        this.#loadFromStorage();
     }
-     loadFromStorage(){
+    #loadFromStorage(){
         this.cartItems=JSON.parse(localStorage.getItem(this.#localStorageKey));
 
         if (!this.cartItems){
@@ -96,7 +96,7 @@ class Cart{
 const cart=new Cart('cart-oop');
 const buisnessCart=new Cart('cart-buisness');
 
-cart.#localStorageKey='df';
+
 
 console.log(cart);
 console.log(buisnessCart);
