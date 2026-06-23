@@ -2,16 +2,16 @@ import { deliveryOptions } from "./deliveryOptions.js";
 
 class Cart{
     cartItems;
-    localStorageKey;
+    #localStorageKey;
 
     constructor(localStorageKey){
-        this.localStorageKey=localStorageKey;
+        this.#localStorageKey=localStorageKey;
         
 
         this.loadFromStorage();
     }
      loadFromStorage(){
-        this.cartItems=JSON.parse(localStorage.getItem(this.localStorageKey));
+        this.cartItems=JSON.parse(localStorage.getItem(this.#localStorageKey));
 
         if (!this.cartItems){
             this.cartItems=[{
@@ -27,7 +27,7 @@ class Cart{
     };
 
     saveToStorage(){
-        localStorage.setItem(this.localStorageKey,JSON.stringify(this.cartItems))
+        localStorage.setItem(this.#localStorageKey,JSON.stringify(this.cartItems))
     };
 
     addToCart(productId){
@@ -96,7 +96,7 @@ class Cart{
 const cart=new Cart('cart-oop');
 const buisnessCart=new Cart('cart-buisness');
 
-
+cart.#localStorageKey='df';
 
 console.log(cart);
 console.log(buisnessCart);
