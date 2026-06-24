@@ -14,10 +14,10 @@ export function renderOrderSummary(){
 
     cart.forEach((cartItem)=>{
         const {productId}=cartItem;
-        console.log('cartitem')
-        console.log(cartItem);
-        console.log('product id')
-        console.log(productId);
+        // console.log('cartitem')
+        // console.log(cartItem);
+        // console.log('product id')
+        // console.log(productId);
         const matchingProduct=getProduct(productId);
         console.log(`mathching: ${matchingProduct}`)
         const deliveryOptionId=cartItem.deliveryOptionId;
@@ -156,13 +156,13 @@ export function renderOrderSummary(){
 
         function hadleQuantity(link){
                 const productId=link.dataset.productId
-                console.log(productId);
+               // console.log(productId);
 
                 const inputElement=document.querySelector(`.js-quantity-input-${productId}`)
                 const inputValue=Number(inputElement.value)
-                console.log(inputValue)
+                //console.log(inputValue)
                 if (inputValue<0 || inputValue>=1000){
-                    console.log('hi')
+                   // console.log('hi')
                     return
                 }
                 updateQuantity(productId,inputValue)

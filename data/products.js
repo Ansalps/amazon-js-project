@@ -1,13 +1,13 @@
 import {formatCurrency} from '../scripts/utils/money.js'
 export function getProduct(productId){
-  console.log('Searching for:', productId);
+  //console.log('Searching for:', productId);
   let matchingProduct;
   products.forEach((product)=>{
       if (product.id===productId){
           matchingProduct=product;
       }
   });
-  console.log('Found:', matchingProduct);
+  //console.log('Found:', matchingProduct);
   return matchingProduct;
 }
 
