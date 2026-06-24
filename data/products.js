@@ -50,8 +50,31 @@ class Clothing extends Product{
   }
 }
 
+/*
+const datae=new Date();
+console.log(datae)
+console.log(datae.toLocaleTimeString())
+*/
+//console.log(this); //undefined
 
+// const object2={
+//   a:2,
+//   b:this.a
+// }
+/*
+function logThis(){
+  console.log(this)
+}
+logThis();//undefined
+logThis.call('hello')//this sets the value of this to 'hello',first parameter is the value of this
 
+const object3={
+  method: ()=>{
+    console.log(this);//arrow functions do not change the value of this, same value outside arrow function,so undefined
+  }
+}
+object3.method();
+*/
 
 export const products = [
   {
